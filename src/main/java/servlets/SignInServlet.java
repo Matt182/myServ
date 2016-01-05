@@ -1,5 +1,6 @@
 package servlets;
 
+import DBService.DBService;
 import main.AccountService;
 import main.UserProfile;
 
@@ -13,17 +14,18 @@ import java.io.IOException;
  * Created by matt on 26.12.2015.
  */
 public class SignInServlet extends HttpServlet {
-    AccountService accountService;
+    DBService DB;
+    UserProfile usr;
 
-    public SignInServlet(AccountService accountService) {
-        this.accountService = accountService;
+    public SignInServlet(DBService accountService) {
+        this.DB = accountService;
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)  throws ServletException, IOException {
         java.util.logging.Logger.getGlobal().info(req.getParameter("login") + " " + req.getParameter("password") + " IN");
-        if (this.accountService.userExist(req.getParameter("login")) &&
-                this.accountService.getUser(req.getParameter("login")).GetPassword().equals(req.getParameter("password"))){
+
+        if (DB.userExist(req.getParameter("login"))){
 
             res.setContentType("text/html;charset=utf-8");
             res.getWriter().print("Authorized");

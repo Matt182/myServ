@@ -1,6 +1,7 @@
 package servlets;
 
 
+import DBService.DBService;
 import main.AccountService;
 import main.UserProfile;
 
@@ -14,10 +15,10 @@ import java.io.IOException;
  * Created by matt on 26.12.2015.
  */
 public class SignUpServlet extends HttpServlet {
-    AccountService accountService;
+    DBService DB;
 
-    public SignUpServlet(AccountService accountService) {
-        this.accountService = accountService;
+    public SignUpServlet(DBService accountService) {
+        this.DB = accountService;
     }
 
     @Override
@@ -25,7 +26,7 @@ public class SignUpServlet extends HttpServlet {
         java.util.logging.Logger.getGlobal().info(req.getParameter("login") + " " + req.getParameter("password") + " UP");
 
         UserProfile usr = new UserProfile(req.getParameter("login"), req.getParameter("password"));
-        accountService.addNewUser(usr);
+        DB.addUser(usr.GetLogin(), usr.GetPassword());
 
 
     }

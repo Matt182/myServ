@@ -1,6 +1,7 @@
 package main;
 
 import DBService.DBService;
+import WebSocket.WebSocketChatServlet;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -29,6 +30,7 @@ public class Main {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(new SignInServlet(dbService)), "/signin");
         context.addServlet(new ServletHolder(new SignUpServlet(dbService)), "/signup");
+        context.addServlet(new ServletHolder(new WebSocketChatServlet()), "/chat");
 
         ResourceHandler resourse = new ResourceHandler();
         resourse.setResourceBase("templates");
